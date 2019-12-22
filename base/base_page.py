@@ -1,5 +1,7 @@
 from abc import abstractmethod
 
+from selenium.common.exceptions import NoSuchElementException
+
 from utilities import properties
 from managers import context
 
@@ -23,3 +25,9 @@ class BasePage(object):
     def go_to(self):
         self.driver.get(self.url)
         self.log.info("Going to: {} ({})".format(self.url, self.__class__))
+
+    def is_element_visible(self, element):
+        try:
+            return element.is_displayed()
+        except NoSuchElementException:
+            return False

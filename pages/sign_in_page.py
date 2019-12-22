@@ -1,5 +1,4 @@
 from base.base_page import BasePage
-from selenium.common.exceptions import NoSuchElementException
 
 
 class SignInPage(BasePage):
@@ -24,10 +23,7 @@ class SignInPage(BasePage):
         return self.driver.find_element_by_xpath("//div[contains(@class, 'alert alert-danger')]/ol")
 
     def is_initialized(self):
-        try:
-            return self.sign_in_button.is_displayed()
-        except NoSuchElementException:
-            return False
+        return self.is_element_visible(self.sign_in_button)
 
     def log_in(self, email, password):
         self.email_input.send_keys(email)
