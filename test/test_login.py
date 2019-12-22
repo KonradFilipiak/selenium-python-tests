@@ -1,6 +1,6 @@
 from parameterized import parameterized
 
-import properties
+from utilities import properties
 from base.base_test import BaseTest
 from pages.header_section import HeaderSection
 from pages.my_account_page import MyAccountPage
