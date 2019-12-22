@@ -1,4 +1,5 @@
 from selenium.webdriver.support.wait import WebDriverWait
+from webdriver_manager.firefox import GeckoDriverManager
 
 from managers import context
 from utilities import properties
@@ -12,11 +13,14 @@ class DriverManager:
         self.log = context.log
         browser = properties.browser
 
+        # could still add more browsers
         if browser == "chrome":
             self.driver = webdriver.Chrome(ChromeDriverManager().install())
             self.log.debug("Initializing {}".format(browser))
-        # TODO: add other browsers
-        # TODO: and else: throw an exception or at least log that something is wrong (if I implement logger)
+        elif browser == "firefox":
+            self.driver = webdriver.Firefox(executable_path=GeckoDriverManager().install())
+        else:
+            self.log.warn("There is no such browser as \"{}\"! Initializing Chrome".format(browser))
 
         self.wait = WebDriverWait(self.driver, properties.implicit_wait)
 
